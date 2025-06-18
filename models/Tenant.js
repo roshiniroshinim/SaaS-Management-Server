@@ -1,14 +1,21 @@
 const mongoose = require('mongoose');
 
-const tenantSchema = new mongoose.Schema({
-  name: String,
-  email: String,
-  domain: String,
-  subscription: String, // use "plan" or "subscription" consistently
-  status: String,
-  products: Number,
-  createdDate: String,
-  products: Number
-});
+const productFeaturesSchema = new mongoose.Schema({
+    id: String,
+    name: String,
+    enabled: Boolean
+})
 
-module.exports = mongoose.model('Tenant', tenantSchema);
+const tenantsSchema = new mongoose.Schema({
+    tenantsName: String,
+    domain: String,
+    email: String,
+    subscription: String,
+    status: String,
+    products: Number,
+    features: [productFeaturesSchema],
+    createdDate: String,
+    createdAt: { type: Date, default: Date.now }
+})
+
+module.exports = mongoose.model('TenantList', tenantsSchema);
